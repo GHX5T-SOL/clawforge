@@ -213,6 +213,13 @@ a {
   margin: 0.3rem 0;
 }
 
+.number-list {
+  margin: 0.45rem 0 0.2rem;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
 .timeline {
   display: grid;
   gap: 0.7rem;
@@ -340,10 +347,56 @@ select {
   gap: 0.6rem;
 }
 
+.image-grid.three-up {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.persona-card h3 {
+  margin: 0.45rem 0 0.2rem;
+  font-size: 0.86rem;
+}
+
+.persona-card .small {
+  margin-bottom: 0.15rem;
+}
+
 .subgrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.8rem;
+}
+
+.code-block {
+  margin: 0;
+  border: 1px solid #314777;
+  border-radius: 10px;
+  background: #0b1226;
+  color: #d9e5ff;
+  padding: 0.85rem;
+  white-space: pre-wrap;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.launch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.launch-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0f1934;
+  padding: 0.7rem;
+}
+
+.launch-card img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 }
 
 .chart-panel {
@@ -431,7 +484,9 @@ select {
   }
   .grid.two,
   .grid.three,
-  .subgrid {
+  .subgrid,
+  .image-grid.three-up,
+  .launch-grid {
     grid-template-columns: 1fr;
   }
   .controls {

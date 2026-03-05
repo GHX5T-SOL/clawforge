@@ -19,6 +19,8 @@ export type AgentProfile = {
   postingWindows: string[];
   researchFocus: string[];
   avatar: string;
+  identityPrompt: string;
+  launchPriority?: "first-three" | "later";
 };
 
 export type Deal = {
@@ -31,6 +33,16 @@ export type Deal = {
   influencers: string[];
   productFocus: string;
   dueWeek: string;
+};
+
+export type PlatformOption = {
+  platform: string;
+  bestFor: string;
+  characterConsistencyMethod: string;
+  difficulty: "easy" | "medium" | "advanced";
+  monthlyCost: string;
+  link: string;
+  note: string;
 };
 
 export const company = {
@@ -52,44 +64,44 @@ export const company = {
 
 export const synthesisNotes = [
   {
-    source: "ai_influencer_agency_blueprint_e52c5155.plan.md",
+    source: "ai_influencer_agency_blueprint_e52c5155.plan.md (primary)",
     takeaway:
-      "Strong governance-first structure: research corpus, compliance framework, and scenario modeling."
+      "Governance-first architecture: research corpus, compliance workflow, and scenario-led forecasting."
   },
   {
     source: "ai_influencer_agency_blueprint_5856b7b0.plan.md",
     takeaway:
-      "Best tactical depth on tools, timelines, and unit economics; strong 36-month financial framing."
+      "High operational depth on tool stack, timeline, and margin structure."
   },
   {
     source: "ai_influencer_agency_business_plan_c07c8117.plan.md",
     takeaway:
-      "Alternative brand framing and sharper customer JTBD language for sales narratives."
+      "Clear customer JTBD framing and stronger sales narrative language."
   },
   {
     source: "ai_influencer_agency_business_plan_f9bba5e4.plan.md",
     takeaway:
-      "Execution checklist rigor and deliverable-driven sequencing useful for founder operations."
+      "Useful sequencing for deliverables and execution checkpoints."
   },
   {
     source: "clawforge_AI_agency_plan.md",
     takeaway:
-      "Comprehensive phased implementation from research to PDF/deck; useful for project governance."
+      "Comprehensive multi-phase implementation from research to pitch collateral."
   },
   {
     source: "clawforge_business_plan_e82ba66f.plan.md",
     takeaway:
-      "Practical HTML→PDF tooling approach and visual communication structure."
+      "Practical documentation and HTML/PDF production flow."
   },
   {
     source: "nexusclaw_ai_agency_blueprint_8940c971.plan.md",
     takeaway:
-      "Clean architecture narrative and concise investor-facing summaries."
+      "Strong concise architecture framing and investor pitch clarity."
   },
   {
-    source: "UVI pack (BUSINESS_PLAN, MARKET_RESEARCH, CHECKLIST, DECK)",
+    source: "UVI package (BUSINESS_PLAN, MARKET_RESEARCH, CHECKLIST, DECK, etc.)",
     takeaway:
-      "Most complete operational artifacts: legal, startup checklist, campaigns, and deployment timeline."
+      "Most complete tactical details: legal, launch checklist, campaign operations, KPI loops."
   }
 ];
 
@@ -130,18 +142,25 @@ export const toolsStack = [
     signup: "https://github.com/openclaw/openclaw"
   },
   {
-    category: "Video Generation",
-    tool: "Kling",
-    purpose: "Photoreal short-form motion clips",
-    cost: "$7–$26/mo typical",
-    signup: "https://klingai.com"
+    category: "Character Visual Identity",
+    tool: "Midjourney Character/Omni Reference",
+    purpose: "Lock character look across stills and scene variations",
+    cost: "$10+ / month plan based",
+    signup: "https://docs.midjourney.com/docs/character-reference"
   },
   {
-    category: "Video Generation",
-    tool: "Runway",
-    purpose: "Premium cinematic shots, long-form variants",
+    category: "Video Consistency",
+    tool: "Runway Gen-4 References",
+    purpose: "Consistent character video shots from image references",
     cost: "$12–$99/mo",
-    signup: "https://runwayml.com"
+    signup: "https://help.runwayml.com/hc/en-us/articles/40042718905875-Creating-with-Gen-4-Image-References"
+  },
+  {
+    category: "Video Consistency",
+    tool: "Kling",
+    purpose: "Fast short-form photoreal clips with reference workflows",
+    cost: "$7–$26/mo typical",
+    signup: "https://klingai.com"
   },
   {
     category: "Voice",
@@ -151,11 +170,11 @@ export const toolsStack = [
     signup: "https://elevenlabs.io/pricing"
   },
   {
-    category: "Image",
-    tool: "Flux.1 / ComfyUI",
-    purpose: "Persona keyframes + consistency library",
-    cost: "$0 local to low API cost",
-    signup: "https://huggingface.co/black-forest-labs"
+    category: "Advanced Character Control",
+    tool: "ComfyUI + IPAdapter + ControlNet",
+    purpose: "Highest control for same-person consistency and pose control",
+    cost: "$0 software + GPU cost",
+    signup: "https://www.runcomfy.com/comfyui-nodes/ComfyUI_IPAdapter_plus"
   },
   {
     category: "Distribution",
@@ -180,81 +199,270 @@ export const toolsStack = [
   }
 ];
 
+export const firstThreeLaunchBlueprint = [
+  {
+    codename: "ArjunPulse",
+    title: "South African Indian Tech Influencer",
+    targetAudience: "English-speaking tech buyers in South Africa + global diaspora",
+    contentStyle: "AI tool explainers, gadget reviews, productivity workflows",
+    refImage: "/assets/persona-sa-indian-tech.jpg",
+    launchGoal: "Publish 10 short videos in first 7 days and hit 1k followers"
+  },
+  {
+    codename: "NiaPips",
+    title: "Nigerian Forex Trader Persona",
+    targetAudience: "Africa-first retail finance and trading learners",
+    contentStyle: "Educational trading explainers, risk-management snippets, market recaps",
+    refImage: "/assets/persona-nigerian-forex.jpg",
+    launchGoal: "Build trust series with 14-day educational content plan"
+  },
+  {
+    codename: "LunaVogue",
+    title: "Fashion & Lifestyle Girl",
+    targetAudience: "Gen Z/young millennial style and beauty audiences",
+    contentStyle: "Outfit changes, lifestyle storytelling, product try-on activations",
+    refImage: "/assets/persona-fashion-girl.png",
+    launchGoal: "Create daily lookbook reels and first 3 brand-style mock activations"
+  }
+];
+
+export const platformOptions: PlatformOption[] = [
+  {
+    platform: "Midjourney + Runway + ElevenLabs (Easiest starter stack)",
+    bestFor: "First-time founders who need quality quickly",
+    characterConsistencyMethod:
+      "Use Midjourney character references for still identity + Runway Gen-4 references for video continuity",
+    difficulty: "easy",
+    monthlyCost: "~$45–$160 depending usage",
+    link: "https://docs.midjourney.com/docs/character-reference",
+    note: "Best balance of low technical overhead and high output quality."
+  },
+  {
+    platform: "Kling + reference workflows + ElevenLabs",
+    bestFor: "Fast short-form clip generation",
+    characterConsistencyMethod:
+      "Keep a locked reference pack (face, full body, side angle) and reuse for all clips",
+    difficulty: "medium",
+    monthlyCost: "~$30–$130",
+    link: "https://klingai.com",
+    note: "Fast production cadence; quality depends on prompt discipline."
+  },
+  {
+    platform: "ComfyUI + IPAdapter + ControlNet + local models",
+    bestFor: "Maximum consistency and full control at scale",
+    characterConsistencyMethod:
+      "Train LoRA + use IPAdapter FaceID and ControlNet pose maps for deterministic identity",
+    difficulty: "advanced",
+    monthlyCost: "Software free; compute/GPU cost variable",
+    link: "https://www.runcomfy.com/comfyui-nodes/ComfyUI_IPAdapter_plus",
+    note: "Most powerful long-term if you have technical support."
+  },
+  {
+    platform: "HeyGen (avatar-first) + social editing stack",
+    bestFor: "Talking-head explainers with minimal setup",
+    characterConsistencyMethod:
+      "Template avatar identity with voice clone and scripted scenes",
+    difficulty: "easy",
+    monthlyCost: "$29+",
+    link: "https://www.heygen.com",
+    note: "Great for explainers but less ideal for full-body lifestyle content."
+  }
+];
+
+export const dayOneGuide = [
+  "Create business workspace: Gmail + Notion + Drive + 1Password for shared credentials.",
+  "Sign up accounts: OpenClaw, Midjourney (or preferred image platform), Runway, Kling, ElevenLabs, Meta Developer, TikTok Developer.",
+  "Create folder structure: /personas, /scripts, /assets, /published, /analytics.",
+  "Pick first 3 launch personas (ArjunPulse, NiaPips, LunaVogue) and lock their identity reference images.",
+  "Write each persona's identity card: age, tone, values, slang style, content boundaries, taboo topics.",
+  "Generate 20 image references per persona (same face, varied clothes/scenes).",
+  "Generate 3 voice samples and finalize one voice per persona in ElevenLabs.",
+  "Create Instagram and TikTok accounts for each persona and fill profile bios + avatar.",
+  "Configure OpenClaw sub-agent for each persona with identity prompt and research points.",
+  "Publish first 2 onboarding posts per persona and start daily research→content→posting loop."
+];
+
+export const weekOneDetailedPlan = [
+  {
+    day: "Day 1",
+    title: "Identity and Accounts Setup",
+    actions: [
+      "Finalize persona identity sheets (voice, style, values, boundaries)",
+      "Open all platform accounts and save credentials in shared vault",
+      "Create social bios with clear persona positioning"
+    ]
+  },
+  {
+    day: "Day 2",
+    title: "Visual Consistency Pack",
+    actions: [
+      "Generate base look images (front, side, full-body, three lighting setups)",
+      "Create wardrobe variants for each persona",
+      "Approve a 'golden identity pack' used in every generation"
+    ]
+  },
+  {
+    day: "Day 3",
+    title: "Video and Voice Pipeline",
+    actions: [
+      "Generate first 6 videos per persona with references",
+      "Apply voice clone and subtitles",
+      "Review quality checklist: realism, audio, script clarity"
+    ]
+  },
+  {
+    day: "Day 4",
+    title: "OpenClaw Agent Wiring",
+    actions: [
+      "Create 3 sub-agents and assign identity prompts",
+      "Attach research points and posting windows",
+      "Run dry test: research output, script output, publish queue"
+    ]
+  },
+  {
+    day: "Day 5",
+    title: "Go Live",
+    actions: [
+      "Publish first content wave (2 posts per persona)",
+      "Reply to early comments manually for tone calibration",
+      "Collect baseline metrics (reach, watch time, saves)"
+    ]
+  },
+  {
+    day: "Day 6",
+    title: "Optimization Loop",
+    actions: [
+      "A/B test hooks and thumbnails",
+      "Refine scripts based on retention drop points",
+      "Update agent memory with best-performing structures"
+    ]
+  },
+  {
+    day: "Day 7",
+    title: "System Review",
+    actions: [
+      "Review weekly KPI dashboard",
+      "Finalize week-2 content sprint",
+      "Prepare mini-case-study deck to show progress to co-founder"
+    ]
+  }
+];
+
+export const openClawPersonaPromptTemplate = `SYSTEM ROLE:
+You are {{CODENAME}}, an autonomous AI influencer managed by NexaPersona Labs.
+
+IDENTITY:
+- Persona: {{PERSONA_DESCRIPTION}}
+- Audience: {{TARGET_AUDIENCE}}
+- Voice style: {{VOICE_STYLE}}
+- Content pillars: {{PILLARS}}
+
+DAILY LOOP:
+1) Research trends for your niche and region.
+2) Produce script ideas (hooks + CTA + caption draft).
+3) Generate content queue (video + image + caption assets).
+4) Publish to Instagram and TikTok on approved windows.
+5) Monitor comments and reply in-character.
+6) Log metrics and write next-day optimization notes.
+
+RESEARCH POINTS:
+- Trending hashtags and sounds
+- Competitor content angle gaps
+- Audience questions in comments
+- Brand product fit for soft integrations
+
+SAFETY:
+- No financial or health claims without disclaimers.
+- Never impersonate real people.
+- Follow disclosure rules for sponsored content.`;
+
 export const agents: AgentProfile[] = [
   {
     id: "ag-001",
-    codename: "VoltRae",
+    codename: "ArjunPulse",
     niche: "Tech",
-    persona: "Analytical gadget reviewer, 28, Cape Town voiceprint",
-    region: "US + South Africa",
+    persona:
+      "South African Indian early-30s tech influencer focused on practical AI and gadget education.",
+    region: "South Africa + global diaspora",
     status: "active",
     channels: {
-      instagram: "@voltrae.ai",
-      tiktok: "@voltrae.tech",
-      youtube: "@voltrae-labs"
+      instagram: "@arjunpulse.ai",
+      tiktok: "@arjunpulse.tech",
+      youtube: "@arjunpulse.explains"
     },
-    followers: 91200,
-    engagementRate: 6.8,
-    conversionRate: 2.9,
-    monthlyRevenueUsd: 18200,
+    followers: 12800,
+    engagementRate: 6.4,
+    conversionRate: 2.7,
+    monthlyRevenueUsd: 1800,
     weeklyTasks: [
-      "Produce 4 product teardown reels",
-      "Record 2 AI tool benchmark shorts",
-      "Reply to top 120 comments with context-aware scripts"
+      "Create 4 AI tool explainers",
+      "Publish 2 gadget demo reels",
+      "Answer top 80 comments with beginner-friendly responses"
     ],
-    postingWindows: ["Mon–Thu 10:00", "Mon–Thu 19:30", "Sun 09:00"],
-    researchFocus: ["AI devices", "consumer robotics", "creator tools"],
-    avatar: "/assets/agent-tech.svg"
+    postingWindows: ["Mon–Thu 10:00", "Mon–Thu 19:00", "Sun 09:00"],
+    researchFocus: ["AI apps", "consumer tech trends", "productivity workflows"],
+    avatar: "/assets/persona-sa-indian-tech.jpg",
+    identityPrompt:
+      "Calm, trustworthy, practical educator tone. Explain in simple English. No hype claims.",
+    launchPriority: "first-three"
   },
   {
     id: "ag-002",
-    codename: "MiraLuxe",
-    niche: "Fashion",
-    persona: "Editorial style persona, 25, high-retention story arcs",
-    region: "US + UAE + UK",
+    codename: "NiaPips",
+    niche: "Forex",
+    persona:
+      "Nigerian forex trader persona delivering educational market commentary and risk-first trading lessons.",
+    region: "Nigeria + Africa + UK",
     status: "active",
     channels: {
-      instagram: "@miraluxe.studio",
-      tiktok: "@miraluxe.style",
-      fanvue: "@miraluxe_afterdark"
+      instagram: "@niapips.fx",
+      tiktok: "@niapips",
+      youtube: "@niapips.education"
     },
-    followers: 144300,
-    engagementRate: 7.2,
-    conversionRate: 3.6,
-    monthlyRevenueUsd: 26300,
+    followers: 9400,
+    engagementRate: 7.1,
+    conversionRate: 3.2,
+    monthlyRevenueUsd: 1400,
     weeklyTasks: [
-      "Launch 2 brand capsule campaigns",
-      "Schedule 5 OOTD reels + 3 carousel posts",
-      "Route premium comments to fan-community funnel"
+      "Publish 5 market recap shorts",
+      "Create 3 risk-management explainers",
+      "Route beginner questions into FAQ highlight reels"
     ],
-    postingWindows: ["Thu 16:00", "Fri 17:00", "Sat 20:30"],
-    researchFocus: ["streetwear trends", "seasonal lookbooks", "beauty collabs"],
-    avatar: "/assets/agent-fashion.svg"
+    postingWindows: ["Mon–Fri 08:30", "Mon–Fri 17:30"],
+    researchFocus: ["forex education", "economic calendar", "risk framework content"],
+    avatar: "/assets/persona-nigerian-forex.jpg",
+    identityPrompt:
+      "Educational, cautious, no guaranteed return claims, always include risk disclaimers.",
+    launchPriority: "first-three"
   },
   {
     id: "ag-003",
-    codename: "ChefNova",
-    niche: "Cooking",
-    persona: "Fast recipe authority with global food formats",
-    region: "US + LATAM",
+    codename: "LunaVogue",
+    niche: "Fashion",
+    persona:
+      "Fashion and lifestyle girl persona for outfit storytelling, beauty routines, and brand-friendly lifestyle content.",
+    region: "Global English-speaking",
     status: "active",
     channels: {
-      instagram: "@chefnova.daily",
-      tiktok: "@chefnova.kitchen",
-      youtube: "@chefnova-mealprep"
+      instagram: "@lunavogue.daily",
+      tiktok: "@lunavogue",
+      fanvue: "@lunavogue.club"
     },
-    followers: 118500,
-    engagementRate: 8.1,
-    conversionRate: 4.1,
-    monthlyRevenueUsd: 19300,
+    followers: 15700,
+    engagementRate: 8.5,
+    conversionRate: 3.8,
+    monthlyRevenueUsd: 2200,
     weeklyTasks: [
-      "Produce 7 meal-prep short videos",
-      "Feature 2 sponsored cookware integrations",
-      "Publish ingredient substitution comment guide"
+      "Publish 5 lookbook reels",
+      "Generate 3 product activation mock campaigns",
+      "Run style poll stories to collect preference data"
     ],
-    postingWindows: ["Daily 11:30", "Daily 18:00"],
-    researchFocus: ["high protein recipes", "budget meals", "viral plating"],
-    avatar: "/assets/agent-cooking.svg"
+    postingWindows: ["Thu 16:00", "Fri 18:00", "Sat 20:30"],
+    researchFocus: ["fashion trends", "beauty routines", "outfit transitions"],
+    avatar: "/assets/persona-fashion-girl.png",
+    identityPrompt:
+      "Aspirational but friendly tone. High visual polish, short hooks, upbeat CTA style.",
+    launchPriority: "first-three"
   },
   {
     id: "ag-004",
@@ -279,7 +487,10 @@ export const agents: AgentProfile[] = [
     ],
     postingWindows: ["Tue 10:30", "Wed 20:00", "Sat 09:00"],
     researchFocus: ["EV range updates", "car accessories", "sports coupe trends"],
-    avatar: "/assets/agent-auto.svg"
+    avatar: "/assets/agent-auto.svg",
+    identityPrompt:
+      "Technical but energetic presenter. Focus on specs and practical ownership tips.",
+    launchPriority: "later"
   },
   {
     id: "ag-005",
@@ -304,7 +515,10 @@ export const agents: AgentProfile[] = [
     ],
     postingWindows: ["Wed 19:00", "Fri 19:00", "Sun 20:30"],
     researchFocus: ["fixture schedules", "fan sentiment", "betting-safe content"],
-    avatar: "/assets/agent-auto.svg"
+    avatar: "/assets/agent-tech.svg",
+    identityPrompt:
+      "Neutral analyst voice, engaging match insights, avoid misleading betting signals.",
+    launchPriority: "later"
   },
   {
     id: "ag-006",
@@ -328,56 +542,10 @@ export const agents: AgentProfile[] = [
     ],
     postingWindows: ["Daily 20:00", "Sat 21:30"],
     researchFocus: ["viral sounds", "reaction memes", "culture moments"],
-    avatar: "/assets/agent-fashion.svg"
-  },
-  {
-    id: "ag-007",
-    codename: "SignalCivic",
-    niche: "Politics",
-    persona: "Non-partisan explainer persona with source-first commentary",
-    region: "US + EU",
-    status: "training",
-    channels: {
-      instagram: "@signalcivic.media",
-      tiktok: "@signalcivic"
-    },
-    followers: 22100,
-    engagementRate: 4.9,
-    conversionRate: 1.1,
-    monthlyRevenueUsd: 3400,
-    weeklyTasks: [
-      "Build verified source pack for policy explainers",
-      "Publish 3 neutral issue briefs",
-      "Implement escalation workflow for sensitive comments"
-    ],
-    postingWindows: ["Tue 18:00", "Thu 18:00", "Sun 17:00"],
-    researchFocus: ["public policy", "fact checks", "election calendar"],
-    avatar: "/assets/agent-tech.svg"
-  },
-  {
-    id: "ag-008",
-    codename: "VelvetEcho",
-    niche: "Adult Premium",
-    persona: "Subscription-led premium persona with strict policy partition",
-    region: "Global",
-    status: "active",
-    channels: {
-      instagram: "@velvetecho.tease",
-      tiktok: "@velvetecho",
-      fanvue: "@velvetecho.vip"
-    },
-    followers: 98400,
-    engagementRate: 8.8,
-    conversionRate: 5.2,
-    monthlyRevenueUsd: 29200,
-    weeklyTasks: [
-      "Queue 4 teaser reels for IG/TikTok safe channels",
-      "Publish 5 premium Fanvue sets",
-      "Run DM conversion automation to premium wall"
-    ],
-    postingWindows: ["Thu 21:00", "Fri 22:00", "Sat 23:00"],
-    researchFocus: ["creator monetization", "retention copy", "offer sequencing"],
-    avatar: "/assets/agent-fashion.svg"
+    avatar: "/assets/agent-fashion.svg",
+    identityPrompt:
+      "High-energy humor, no sensitive-topic escalation, always keep brand-safe mode toggle.",
+    launchPriority: "later"
   }
 ];
 
@@ -389,42 +557,42 @@ export const deals: Deal[] = [
     valueUsd: 18000,
     stage: "active",
     owner: "Ghost",
-    influencers: ["VoltRae", "ChefNova"],
+    influencers: ["ArjunPulse", "LunaVogue"],
     productFocus: "Nootropic drink launch",
     dueWeek: "Week 2"
   },
   {
     id: "dl-101",
-    brand: "LumaFit",
-    vertical: "Sportswear",
+    brand: "ForexPilot EDU",
+    vertical: "Finance Education",
     valueUsd: 22000,
     stage: "proposal",
     owner: "Zoro",
-    influencers: ["MiraLuxe", "PulseArena"],
-    productFocus: "High-performance apparel drop",
+    influencers: ["NiaPips"],
+    productFocus: "Forex learning app campaign",
     dueWeek: "Week 3"
   },
   {
     id: "dl-102",
+    brand: "LumaWear",
+    vertical: "Fashion",
+    valueUsd: 14000,
+    stage: "lead",
+    owner: "Ghost",
+    influencers: ["LunaVogue"],
+    productFocus: "Lifestyle lookbook campaign",
+    dueWeek: "Week 4"
+  },
+  {
+    id: "dl-103",
     brand: "TorqueGrid",
     vertical: "Automotive",
     valueUsd: 12000,
     stage: "active",
-    owner: "Ghost",
+    owner: "Zoro",
     influencers: ["ApexTorque"],
     productFocus: "EV charger kit campaign",
     dueWeek: "Week 2"
-  },
-  {
-    id: "dl-103",
-    brand: "OrbitalSkin",
-    vertical: "Beauty",
-    valueUsd: 14000,
-    stage: "lead",
-    owner: "Zoro",
-    influencers: ["MiraLuxe", "GridJester"],
-    productFocus: "Skincare UGC amplification",
-    dueWeek: "Week 4"
   },
   {
     id: "dl-104",
@@ -433,33 +601,33 @@ export const deals: Deal[] = [
     valueUsd: 26000,
     stage: "delivered",
     owner: "Ghost",
-    influencers: ["ChefNova", "PulseArena", "VelvetEcho"],
+    influencers: ["ArjunPulse", "LunaVogue"],
     productFocus: "8-week conversion campaign",
     dueWeek: "Completed"
   }
 ];
 
 export const adBudget = [
-  { platform: "Meta Ads", monthly: 5200, roas: 4.7, cac: 145 },
-  { platform: "TikTok Ads", monthly: 3600, roas: 5.1, cac: 118 },
-  { platform: "Google Search", monthly: 2400, roas: 3.9, cac: 172 },
-  { platform: "YouTube Shorts", monthly: 1400, roas: 2.8, cac: 210 }
+  { platform: "Meta Ads", monthly: 2200, roas: 4.2, cac: 122 },
+  { platform: "TikTok Ads", monthly: 1800, roas: 4.9, cac: 98 },
+  { platform: "Google Search", monthly: 1200, roas: 3.4, cac: 155 },
+  { platform: "YouTube Shorts", monthly: 900, roas: 2.6, cac: 190 }
 ];
 
 export const monthlyPerformance = [
-  { month: "Jan", followersK: 210, revenueK: 62, engagement: 6.1, deals: 12 },
-  { month: "Feb", followersK: 262, revenueK: 78, engagement: 6.6, deals: 16 },
-  { month: "Mar", followersK: 318, revenueK: 94, engagement: 6.9, deals: 18 },
-  { month: "Apr", followersK: 377, revenueK: 113, engagement: 7.2, deals: 22 },
-  { month: "May", followersK: 431, revenueK: 127, engagement: 7.4, deals: 24 },
-  { month: "Jun", followersK: 488, revenueK: 146, engagement: 7.7, deals: 27 }
+  { month: "Jan", followersK: 12, revenueK: 0, engagement: 4.1, deals: 0 },
+  { month: "Feb", followersK: 26, revenueK: 3, engagement: 5.2, deals: 2 },
+  { month: "Mar", followersK: 43, revenueK: 8, engagement: 6.1, deals: 4 },
+  { month: "Apr", followersK: 67, revenueK: 15, engagement: 6.8, deals: 7 },
+  { month: "May", followersK: 92, revenueK: 24, engagement: 7.2, deals: 10 },
+  { month: "Jun", followersK: 128, revenueK: 36, engagement: 7.6, deals: 13 }
 ];
 
 export const forecastScenarios = {
   conservative: [
-    { year: "Y1", revenue: 260000, profit: 128000 },
-    { year: "Y2", revenue: 540000, profit: 341000 },
-    { year: "Y3", revenue: 920000, profit: 612000 }
+    { year: "Y1", revenue: 180000, profit: 82000 },
+    { year: "Y2", revenue: 420000, profit: 241000 },
+    { year: "Y3", revenue: 820000, profit: 502000 }
   ],
   base: [
     { year: "Y1", revenue: 369000, profit: 310000 },
@@ -477,63 +645,66 @@ export const roadmap = [
   {
     phase: "Phase 0",
     window: "Week 1",
-    objective: "Foundation",
+    objective: "Founder Setup + Persona Definition",
     outcomes: [
-      "Register entity, legal templates, and disclosure policy",
-      "Provision Mac Mini infrastructure and secure credentials",
-      "Finalize 8 launch personas and voice design"
+      "Set up legal/compliance and shared credential vault",
+      "Create first 3 persona identity cards",
+      "Sign up and verify all required platforms"
     ]
   },
   {
     phase: "Phase 1",
-    window: "Weeks 2–4",
-    objective: "MVP Live",
+    window: "Weeks 2–3",
+    objective: "First 3 Influencers Live",
     outcomes: [
-      "Deploy orchestrator + 8 sub-agents",
-      "Launch first social surfaces with quality gating",
-      "Close 3 pilot brand campaigns"
+      "Generate identity-consistent visuals and first content bank",
+      "Wire OpenClaw sub-agents with prompts and research points",
+      "Launch Instagram and TikTok profiles"
     ]
   },
   {
     phase: "Phase 2",
-    window: "Weeks 5–8",
-    objective: "Revenue Validation",
+    window: "Weeks 4–6",
+    objective: "Follower Growth Engine",
     outcomes: [
-      "Reach $15k monthly run rate",
-      "Scale to 12 active personas",
-      "Publish investor-ready case studies with verified metrics"
+      "Run daily posting and engagement loop",
+      "Track retention, saves, and comments by persona",
+      "Hit first follower milestones before active deal outreach"
     ]
   },
   {
     phase: "Phase 3",
-    window: "Months 3–6",
-    objective: "Systems Expansion",
+    window: "Weeks 7–12",
+    objective: "Deal Readiness",
     outcomes: [
-      "Scale to 20+ personas with per-niche playbooks",
-      "Implement ad allocation optimizer and brand deal pipeline automation",
-      "Begin enterprise outbound and white-label pilot"
+      "Build case studies with real account metrics",
+      "Start outbound to brand targets with proof assets",
+      "Close first paid sponsorships"
     ]
   }
 ];
 
 export const executionChecklist = [
-  "Finalize new brand identity and domain lock",
-  "Set up OpenClaw orchestration environment with staging and production workspaces",
-  "Create source-of-truth persona registry and content safety policy",
-  "Ship daily trend research pipeline and scoring model",
-  "Set weekly content quotas per niche + approval gates",
-  "Launch GTM outbound sprint (500 accounts/month)",
-  "Stand up ad manager with CAC/ROAS monitoring",
-  "Instrument KPI dashboard: engagement, conversion, MRR, churn risk",
-  "Implement legal audit trail for sponsorship disclosures",
-  "Prepare investor dataroom: deck, model, compliance briefs, case studies"
+  "Finalize brand identity and domain lock for NexaPersona Labs",
+  "Create 3 persona identity cards (ArjunPulse, NiaPips, LunaVogue)",
+  "Sign up: OpenClaw, Midjourney/ComfyUI, Runway, Kling, ElevenLabs, Meta Developer, TikTok Developer",
+  "Build golden reference packs for each persona (front/side/full-body/light variants)",
+  "Generate first 10 videos and 20 photos per persona",
+  "Create Instagram and TikTok profiles and publish onboarding posts",
+  "Set OpenClaw daily loops: research -> script -> generate -> post -> engage",
+  "Measure week-1 metrics and update persona prompts from audience feedback",
+  "Run growth sprint until each persona has enough proof metrics for deal outreach",
+  "Prepare outreach deck and begin first brand conversations"
 ];
 
 export const sourceLinks = [
   "https://www.snsinsider.com/reports/virtual-influencer-market-5924",
   "https://www.grandviewresearch.com/industry-analysis/virtual-influencer-market-report",
   "https://www.euronews.com/next/2024/12/27/meet-the-first-spanish-ai-model-earning-up-to-10000-per-month",
-  "https://elevenlabs.io/pricing",
+  "https://runwayml.com/research/introducing-runway-gen-4",
+  "https://help.runwayml.com/hc/en-us/articles/40042718905875-Creating-with-Gen-4-Image-References",
+  "https://docs.midjourney.com/docs/character-reference",
+  "https://elevenlabs.io/docs/creative-platform/voices/voice-cloning/instant-voice-cloning",
   "https://developers.facebook.com/docs/instagram-graph-api",
   "https://developers.tiktok.com"
 ];

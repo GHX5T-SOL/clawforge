@@ -29,18 +29,24 @@ import {
   agents,
   company,
   deals,
+  dayOneGuide,
   executionChecklist,
+  firstThreeLaunchBlueprint,
   forecastScenarios,
   marketStats,
   monthlyPerformance,
+  openClawPersonaPromptTemplate,
+  platformOptions,
   roadmap,
   sourceLinks,
   synthesisNotes,
-  toolsStack
+  toolsStack,
+  weekOneDetailedPlan
 } from "./data/mockData";
 
 type TabKey =
   | "overview"
+  | "quickstart"
   | "strategy"
   | "market"
   | "blueprint"
@@ -51,9 +57,18 @@ type TabKey =
 
 const tabs: { key: TabKey; label: string; icon: ReactNode }[] = [
   { key: "overview", label: "Mission Control", icon: <Compass size={16} /> },
+  {
+    key: "quickstart",
+    label: "Start Here (Zoro)",
+    icon: <CheckSquare size={16} />
+  },
   { key: "strategy", label: "Unified Strategy", icon: <Network size={16} /> },
   { key: "market", label: "Market Intel", icon: <BarChart3 size={16} /> },
-  { key: "blueprint", label: "Tech Blueprint", icon: <Briefcase size={16} /> },
+  {
+    key: "blueprint",
+    label: "Platforms + Tech",
+    icon: <Briefcase size={16} />
+  },
   {
     key: "dashboard",
     label: "Swarm Dashboard",
@@ -147,10 +162,10 @@ function App() {
                 <p className="hero-subtitle">{company.internalSubtitle}</p>
               </div>
               <div className="hero-kpis">
-                <StatCard label="Total Swarm Followers" value="0.49M+" />
-                <StatCard label="Monthly Revenue (Mock)" value="$146k" />
-                <StatCard label="Active Personas" value="8 live / 2 training" />
-                <StatCard label="Current Break-even Model" value="Month 2–3" />
+                <StatCard label="Launch Cohort" value="3 Personas" />
+                <StatCard label="Current Objective" value="Go live + grow audience" />
+                <StatCard label="Business Model Stage" value="Audience-first, deals second" />
+                <StatCard label="Break-even Target" value="Month 2–3" />
               </div>
             </section>
 
@@ -165,6 +180,21 @@ function App() {
                   <li key={pillar}>{pillar}</li>
                 ))}
               </ul>
+            </section>
+
+            <section className="panel">
+              <h2>Zoro Quick Context (No Technical Background Needed)</h2>
+              <p>
+                This website is your complete operating manual. If you only do three
+                things this week: create the first 3 personas, publish daily short
+                content on Instagram/TikTok, and track engagement. We only start
+                aggressive brand outreach after we have visible account traction.
+              </p>
+              <ol className="number-list">
+                <li>Open <strong>Start Here (Zoro)</strong> tab and execute Day 1 checklist.</li>
+                <li>Open <strong>Platforms + Tech</strong> tab and choose your creation stack.</li>
+                <li>Open <strong>Execution Ops</strong> tab and follow the 7-day launch schedule.</li>
+              </ol>
             </section>
 
             <section className="grid two">
@@ -191,20 +221,61 @@ function App() {
                 </ul>
               </article>
               <article className="panel image-panel">
-                <h2>Persona Mock Preview</h2>
-                <div className="image-grid">
-                  <img src="/assets/agent-tech.svg" alt="Tech persona mock" />
-                  <img
-                    src="/assets/agent-fashion.svg"
-                    alt="Fashion persona mock"
-                  />
-                  <img
-                    src="/assets/agent-cooking.svg"
-                    alt="Cooking persona mock"
-                  />
-                  <img src="/assets/agent-auto.svg" alt="Auto persona mock" />
+                <h2>First 3 Launch Personas (Reference Images)</h2>
+                <div className="image-grid three-up">
+                  {firstThreeLaunchBlueprint.map((persona) => (
+                    <div key={persona.codename} className="persona-card">
+                      <img src={persona.refImage} alt={persona.title} />
+                      <h3>{persona.title}</h3>
+                      <p className="small">{persona.codename}</p>
+                    </div>
+                  ))}
                 </div>
               </article>
+            </section>
+          </>
+        );
+
+      case "quickstart":
+        return (
+          <>
+            <section className="panel">
+              <h2>Day 1: Exact Steps</h2>
+              <p>
+                Follow this in order. If all Day-1 items are done, your system is
+                ready to launch the first 3 influencers.
+              </p>
+              <ol className="number-list">
+                {dayOneGuide.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            </section>
+
+            <section className="panel">
+              <h2>Week 1 Blueprint (Simple and Practical)</h2>
+              <div className="timeline">
+                {weekOneDetailedPlan.map((dayPlan) => (
+                  <div className="timeline-item" key={dayPlan.day}>
+                    <p className="timeline-source">{dayPlan.day}</p>
+                    <h3>{dayPlan.title}</h3>
+                    <ul className="bullet-list">
+                      {dayPlan.actions.map((action) => (
+                        <li key={action}>{action}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="panel">
+              <h2>OpenClaw Sub-Agent Identity Template</h2>
+              <p>
+                Use this template for each influencer agent. Replace placeholders
+                with persona details.
+              </p>
+              <pre className="code-block">{openClawPersonaPromptTemplate}</pre>
             </section>
           </>
         );
@@ -288,6 +359,28 @@ function App() {
                 </table>
               </article>
             </section>
+
+            <section className="panel">
+              <h2>Go-To-Market Rule for First 90 Days</h2>
+              <ul className="bullet-list">
+                <li>
+                  <strong>Days 1-30:</strong> build personas, publish daily, and
+                  optimize retention.
+                </li>
+                <li>
+                  <strong>Days 31-60:</strong> grow followers and proof metrics
+                  (watch time, saves, comments, click-through).
+                </li>
+                <li>
+                  <strong>Days 61-90:</strong> start targeted outreach to brands
+                  with real performance screenshots.
+                </li>
+                <li>
+                  <strong>Core principle:</strong> audience traction first,
+                  sponsorship monetization second.
+                </li>
+              </ul>
+            </section>
           </>
         );
 
@@ -348,6 +441,28 @@ function App() {
                 </ul>
               </article>
             </section>
+
+            <section className="panel">
+              <h2>Research Conclusion: Platform Choice for Consistent AI Influencers</h2>
+              <ul className="bullet-list">
+                <li>
+                  Runway Gen-4 references explicitly supports consistent characters
+                  across different scenes and camera angles.
+                </li>
+                <li>
+                  Midjourney character/omni references is currently the easiest
+                  still-image identity lock for non-technical founders.
+                </li>
+                <li>
+                  ComfyUI with IPAdapter + ControlNet is the strongest technical
+                  option when you need tighter consistency at scale.
+                </li>
+                <li>
+                  Recommended operating model: easy stack first, advanced stack
+                  later once process is stable.
+                </li>
+              </ul>
+            </section>
           </>
         );
 
@@ -366,6 +481,48 @@ function App() {
                 <p>Content Generation → QA Gate → Scheduled Publishing</p>
                 <p>Publishing → Engagement Loop → KPI Feedback → Retraining</p>
               </div>
+            </section>
+
+            <section className="panel">
+              <h2>Which Platform Should We Use for the Same Person Every Time?</h2>
+              <p>
+                There is no perfect single platform that does everything. Best
+                practical recommendation for first-time founders:
+                <strong>
+                  {" "}
+                  Midjourney (identity stills) + Runway Gen-4 References (video) +
+                  ElevenLabs (voice) + OpenClaw (automation)
+                </strong>
+                .
+              </p>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Platform Stack</th>
+                    <th>Best For</th>
+                    <th>Consistency Method</th>
+                    <th>Difficulty</th>
+                    <th>Monthly Cost</th>
+                    <th>Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {platformOptions.map((option) => (
+                    <tr key={option.platform}>
+                      <td>{option.platform}</td>
+                      <td>{option.bestFor}</td>
+                      <td>{option.characterConsistencyMethod}</td>
+                      <td>{option.difficulty}</td>
+                      <td>{option.monthlyCost}</td>
+                      <td>
+                        <a href={option.link} target="_blank" rel="noreferrer">
+                          Open
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </section>
 
             <section className="panel">
@@ -396,6 +553,19 @@ function App() {
                   ))}
                 </tbody>
               </table>
+            </section>
+
+            <section className="panel">
+              <h2>Non-Technical Platform Signup Order</h2>
+              <ol className="number-list">
+                <li>OpenClaw account and local setup.</li>
+                <li>Image platform account (Midjourney or equivalent).</li>
+                <li>Runway + Kling account for video generation.</li>
+                <li>ElevenLabs for voice profile cloning.</li>
+                <li>Meta Developer account for Instagram Graph API.</li>
+                <li>TikTok Developer account for publishing automation.</li>
+                <li>Tracking stack (Notion + Google Sheets + analytics dashboard).</li>
+              </ol>
             </section>
           </>
         );
@@ -508,6 +678,15 @@ function App() {
                         <strong>KPIs:</strong> {selectedAgent.engagementRate}% ER ·{" "}
                         {selectedAgent.conversionRate}% CVR · $
                         {selectedAgent.monthlyRevenueUsd.toLocaleString()} / month
+                      </p>
+                      <p>
+                        <strong>Identity Prompt:</strong> {selectedAgent.identityPrompt}
+                      </p>
+                      <p>
+                        <strong>Launch Priority:</strong>{" "}
+                        {selectedAgent.launchPriority === "first-three"
+                          ? "First 3 launch cohort"
+                          : "Phase 2+ expansion"}
                       </p>
                     </div>
                   </div>
@@ -685,6 +864,30 @@ function App() {
         return (
           <>
             <section className="panel">
+              <h2>First 3 Influencers: Build Plan</h2>
+              <div className="launch-grid">
+                {firstThreeLaunchBlueprint.map((persona) => (
+                  <article key={persona.codename} className="launch-card">
+                    <img src={persona.refImage} alt={persona.title} />
+                    <h3>{persona.title}</h3>
+                    <p className="small">
+                      <strong>Codename:</strong> {persona.codename}
+                    </p>
+                    <p className="small">
+                      <strong>Audience:</strong> {persona.targetAudience}
+                    </p>
+                    <p className="small">
+                      <strong>Content:</strong> {persona.contentStyle}
+                    </p>
+                    <p className="small">
+                      <strong>Launch Goal:</strong> {persona.launchGoal}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="panel">
               <h2>Step-by-Step Roadmap</h2>
               <div className="timeline">
                 {roadmap.map((item) => (
@@ -704,7 +907,7 @@ function App() {
             </section>
 
             <section className="panel">
-              <h2>Founder Execution Checklist</h2>
+              <h2>Detailed Founder Checklist</h2>
               <div className="checklist">
                 {executionChecklist.map((item, index) => {
                   const key = `item-${index}`;
