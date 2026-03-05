@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Tech persona avatar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="190" r="92" fill="#dbeafe"/>
+  <path d="M132 420c16-86 72-128 124-128s108 42 124 128" fill="#dbeafe"/>
+  <rect x="158" y="352" width="196" height="30" rx="15" fill="#93c5fd"/>
+  <text x="50%" y="468" text-anchor="middle" fill="#e0f2fe" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="700">TECH</text>
+</svg>

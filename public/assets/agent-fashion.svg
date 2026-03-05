@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Fashion persona avatar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="184" r="96" fill="#fdf2f8"/>
+  <path d="M120 422c22-98 84-138 136-138s114 40 136 138" fill="#fdf2f8"/>
+  <path d="M170 140c14-44 58-68 86-68s72 24 86 68" fill="#f9a8d4"/>
+  <text x="50%" y="468" text-anchor="middle" fill="#fdf4ff" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700">STYLE</text>
+</svg>
